@@ -1,6 +1,7 @@
-package bank.management.system;
+package swing.bank;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ public class Login extends JFrame implements ActionListener {
                         icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)
                 );
         JLabel iconLabel = new JLabel(scaledIcon),
-                title = new JLabel("Welcome to BMS"),
+                title = new JLabel("Welcome to Swing Bank"),
                 cardNoLabel = new JLabel("Card No: "),
                 pinLabel = new JLabel("PIN: ");
         cardNoTextField = new JTextField();
@@ -32,15 +33,18 @@ public class Login extends JFrame implements ActionListener {
         iconLabel.setBounds(70, 10, 100, 100);
 
         title.setFont(new Font("Oswald", Font.BOLD, 38));
-        title.setBounds(200, 40, 400, 40);
+        title.setForeground(ColorUIResource.GREEN);
+        title.setBounds(200, 40, 400, 50);
 
         cardNoLabel.setFont(new Font("Raleway", Font.BOLD, 28));
+        cardNoLabel.setForeground(ColorUIResource.GREEN);
         cardNoLabel.setBounds(120, 150, 150, 30);
 
         cardNoTextField.setFont(new Font("Arial", Font.BOLD, 14));
         cardNoTextField.setBounds(300, 150, 230, 30);
 
         pinLabel.setFont(new Font("Raleway", Font.BOLD, 28));
+        pinLabel.setForeground(ColorUIResource.GREEN);
         pinLabel.setBounds(120, 220, 250, 30);
 
         pinTextField.setFont(new Font("Arial", Font.BOLD, 14));
@@ -107,9 +111,10 @@ public class Login extends JFrame implements ActionListener {
 
     private void setProperties() {
         setLayout(null);
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src/icons/white icon.png"));
         setSize(800, 500);
-        getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
-        setTitle("Bank Management System");
+        setTitle("Swing Bank");
     }
 }
