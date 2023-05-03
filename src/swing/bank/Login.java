@@ -14,7 +14,7 @@ public class Login extends JFrame implements ActionListener {
         setProperties();
 
         /* Creating Components */
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("icons/logo.jpg")),
+        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png")),
                 scaledIcon = new ImageIcon(
                         icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)
                 );
