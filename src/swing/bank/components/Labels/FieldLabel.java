@@ -27,7 +27,4 @@ public class FieldLabel extends Label {
         setForeground(foregroundColor);
         setBounds(x, y, width, height);
     }
-//    FieldLabel(String text, ) {
-//
-//    }
 }
