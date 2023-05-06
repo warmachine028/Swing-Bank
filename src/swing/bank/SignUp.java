@@ -7,10 +7,11 @@ import swing.bank.components.TextField;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
-import java.util.Random;
+import java.util.Random;~~~
 
 public class SignUp extends JFrame {
-    TextField nameTextField, fNameTextField, emailTextField;
+    TextField nameTextField, fNameTextField, emailTextField,
+              addressField, cityTextField, stateTextField, pinTextField;
 
     SignUp() {
         setProperties();
@@ -78,6 +79,10 @@ public class SignUp extends JFrame {
         nameTextField = new TextField(this, 140);
         fNameTextField = new TextField(this, 190);
         emailTextField = new TextField(this, 340);
+        addressField = new TextField(this, 440);
+        cityTextField = new TextField(this, 490);
+        stateTextField = new TextField(this, 540);
+        pinTextField = new TextField(this, 590);
     }
 
     void setProperties() {
