@@ -1,4 +1,4 @@
-    updated on: 09th May 2023
+    updated on: 09th May 2023, Tuesday
 
 <div align=center>
     <a href="https://github.com/warmachine028/Swing-Bank">
