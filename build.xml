@@ -10,6 +10,7 @@
     <property name="ivy.home" value="${user.home}/.ant"/>
     <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+
     <path id="ivy.lib.path">
         <fileset dir="${user.home}/.ant/lib" includes="ivy-ant*.jar"/>
     </path>
@@ -24,7 +25,7 @@
     </condition>
 
 
-    <!-- download Ivy from web site so that it can be used even without any special installation -->
+    <!-- download Ivy from website so that it can be used even without any special installation -->
     <target name="download-ivy" unless="offline">
         <mkdir dir="${ivy.jar.dir}"/>
         <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
@@ -54,12 +55,11 @@
             <classpath>
                 <pathelement location="${build.dir}"/>
                 <pathelement location="lib/*"/>
-                <path refid="ivy.classpath"/>
             </classpath>
         </javac>
     </target>
     <target name="jar" depends="compile">
-        <jar destfile="${dist.dir}/MyApp.jar" basedir="${build.dir}">
+        <jar destfile="${dist.dir}/SwingBank.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
