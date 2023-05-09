@@ -34,7 +34,7 @@ jobs:
           sudo apt-get install ivy
 
       - name: Build with Ant
-        run: ls -l
+        run: sudo apt list --installed
 
       - name: Cache dependencies
         uses: actions/cache@v2
