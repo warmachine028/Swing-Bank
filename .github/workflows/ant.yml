@@ -35,7 +35,7 @@ jobs:
 
       - name: Build with Ant
         run: | # ant -noinput -buildfile build.xml
-          ant resolve
+          ant resolve-dependencies
           ant build
 
       - name: Cache dependencies
