@@ -10,6 +10,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  ANT_HOME: /usr/share/ant
+  IVY_HOME: /usr/share/ivy
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,12 +28,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Set up Ant and Ivy
-        uses: actions/setup-java@v1
-        with:
-          java-version: '19'
-          distribution: 'temurin'
-          ant-version: '1.10.13'
-          ivy-version: '2.5.1'
+        run: |
+          sudo apt-get update
+          sudo apt-get install ant
+          sudo apt-get install ivy
 
       - name: Build with Ant
         run: ant -noinput -buildfile build.xml
