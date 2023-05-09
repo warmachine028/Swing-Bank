@@ -1,6 +1,15 @@
 <ivysettings>
-    <settings defaultResolver="maven"/>
+    <settings defaultResolver="default"/>
     <resolvers>
+        <filesystem name="local">
+            <artifact pattern="${user.dir}/${lib.dir}/" />
+        </filesystem>
         <ibiblio name="maven" m2compatible="true" root="https://repo1.maven.org/maven2/"/>
+        <chain name="default">
+            <resolver ref="local"/>
+            <resolver ref="maven"/>
+        </chain>
     </resolvers>
 </ivysettings>
+
+<!-- https://stackoverflow.com/questions/61114676/how-to-enforce-https-in-ivy-->
