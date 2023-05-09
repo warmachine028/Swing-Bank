@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="utf-8" ?>
+<project name="Swing Bank" default="build" basedir=".">
+    <description>
+        ANT Build file for Swing Bank Built on Java Swing Framework
+    </description>
+    <property name="src.dir" value="src" />
+    <property name="build.dir" value="build" />
+    <property name="dist.dir" value="dist" />
+    <property name="main-class" value="swing.bank" />
+    <target name="init">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+            <classpath>
+                <pathelement location="${build.dir}" />
+                <pathelement location="lib/*" />
+            </classpath>
+        </javac>
+    </target>
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}/MyApp.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}" />
+            </manifest>
+        </jar>
+    </target>
+    <target name="clean">
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+    <target name="build" depends="clean,jar">
+        <echo message="Build complete!" />
+    </target>
+</project>
