@@ -7,6 +7,9 @@
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="dist"/>
     <property name="main-class" value="swing.bank"/>
+    <path id="ivy.lib.path">
+        <fileset dir="${user.home}/.ant/lib" includes="ivy-ant*.jar" />
+    </path>
     <path id="lib.path">
         <fileset dir="lib">
             <include name="jcalendar-tz-1.3.3-4.jar"/>

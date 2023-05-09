@@ -16,16 +16,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Set up JDK 11
+
+      - name: Set up JDK 19, Ant and Ivy
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '19'
           distribution: 'temurin'
+          ant-version: '1.10.13'
+          ivy-version: '2.5.1'
+
+      - name: Build with Ant
+        run: ant -noinput -buildfile build.xml
+
       - name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ~/.iv2/cache
           key: ${{ runner.os }}-ivy-${{ hashFiles('ivy.xml') }}
           restore-keys: ${{ runner.os }}-ivy-
-      - name: Build with Ant
-        run: ant -noinput -buildfile build.xml
