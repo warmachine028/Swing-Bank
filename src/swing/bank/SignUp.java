@@ -1,6 +1,4 @@
 package swing.bank;
-
-import com.toedter.calendar.JDateChooser;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.Labels.TitleLabel;
@@ -9,6 +7,8 @@ import swing.bank.components.TextField;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+
+import com.toedter.calendar.JDateChooser;
 
 public class SignUp extends JFrame {
     TextField nameTextField, fNameTextField, emailTextField, addressField,
