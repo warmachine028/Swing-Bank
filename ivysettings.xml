@@ -3,4 +3,9 @@
     <resolvers>
         <ibiblio name="my-maven" m2compatible="true" root="https://repo1.maven.org/maven2/"/>
     </resolvers>
+    <chain name="default">
+        <resolver ref="central"/>
+        <resolver ref="my-maven"/>
+        <!--<resolver ref="local-m2"/>-->
+    </chain>
 </ivysettings>
