@@ -12,6 +12,8 @@
 
 # [Swing Bank](https://github.com/warmachine028/Swing-Bank)
 
+![line]
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -21,15 +23,49 @@
 - [Best Contributors](#best-contributors)
 - [License](#license)
 
+![line]
+
 ## Introduction
+
+![line]
 
 ## Developement
 
+- Download and Install Ant
+- Set path and environment variable
+
+sh
+  $> ant download-ivy  
+  ...  
+  $> ant
+
+![line]
+
 ## Tech Stack Used
+
+- Java
+- Ant
+- Git
+- Github
+- Ivy
+- Github Actions
+
+![line]
 
 ## Preview
 
+
+![line]
+
 ## Best Contributors
+
+<div align="center">
+    <a  href="https://github.com/warmachine028/memories/graphs/swing-bank">
+        <img src="https://contrib.rocks/image?repo=warmachine028/swing-bank" />
+    </a>
+</div>
+
+![line]
 
 ## License
 
@@ -44,4 +80,6 @@
 [line]: https://user-images.githubusercontent.com/75939390/137615281-3a875960-92cc-407f-97fe-fd2319bdb252.png
 
 [License]: https://github.com/warmachine028/swing-bank/blob/main/LICENSE
+
+
 <!-- 09/05/23 -->
