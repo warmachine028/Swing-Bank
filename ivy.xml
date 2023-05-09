@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-    <info organisation="swing.bank" module="src"/>
+    <info organisation="com.example" module="Swing-Bank"/>
     <dependencies>
         <dependency org="com.toedter" name="jcalendar" rev="1.4"/>
         <dependency org="mysql" name="mysql-connector-java" rev="8.0.33"/>
