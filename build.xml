@@ -6,11 +6,10 @@
     <property name="dist.dir" value="dist"/>
     <property name="main-class" value="swing.bank"/>
 
-    <property name="ivy.install.version" value="2.1.0-rc2"/>
+    <property name="ivy.install.version" value="2.5.1"/>
     <property name="ivy.home" value="${user.home}/.ant"/>
     <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
-    <ivy:settings file="ivysettings.xml"/>
     <path id="ivy.lib.path">
         <fileset dir="${user.home}/.ant/lib" includes="ivy-ant*.jar"/>
     </path>
