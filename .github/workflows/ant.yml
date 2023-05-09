@@ -27,16 +27,18 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
 
-      - name: Set up Ant and Ivy
+      - name: Set up Ant
         run: |
           sudo apt-get update
           sudo apt-get install ant
-          sudo apt-get install ivy
+
+      - name: Set up Ivy
+        run: ant download-ivy
 
       - name: Build with Ant
-        run: | # ant -noinput -buildfile _build.xml
-          ant resolve
-          ant build
+        run: | 
+          ant -noinput -buildfile build.xml
+          
 
       - name: Cache dependencies
         uses: actions/cache@v2
