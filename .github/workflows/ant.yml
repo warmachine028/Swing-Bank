@@ -6,9 +6,9 @@ name: Distribution
 on:
   workflow_dispatch:
   push:
-    branches: [ "main" ]
     paths-ignore:
       - '.github/**'
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
