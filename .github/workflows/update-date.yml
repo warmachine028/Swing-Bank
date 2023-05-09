@@ -3,7 +3,7 @@ name: Update Date
 on:
   workflow_dispatch:
   push:
-    branches: [ SEMESTER_6 ]
+    branches: [ main ]
 
 jobs:
   publish:
