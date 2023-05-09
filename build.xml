@@ -1,4 +1,4 @@
-<project name="Swing-Bank" default="run">
+<project name="Swing-Bank" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
     <taskdef resource="org/apache/ivy/ant/antlib.xml"
              uri="antlib:org.apache.ivy.ant" classpath="${basedir}/ivy-2.5.0.jar" />
     <target name="resolve">
