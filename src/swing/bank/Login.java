@@ -19,10 +19,8 @@ public class Login extends JFrame implements ActionListener {
         setProperties();
 
         /* Creating Components */
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png")),
-                scaledIcon = new ImageIcon(
-                        icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)
-                );
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("icons/logo.png")),
+                scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         JLabel iconLabel = new JLabel(scaledIcon);
         new TitleLabel("Welcome to Swing Bank", 200, 40, Color.GREEN, this);
         new FieldLabel("Card No.: ", 120, 150, 150, 30, this);
@@ -57,10 +55,6 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new Login();
-    }
-
     void onClear() {
         cardNoTextField.setText("");
         pinTextField.setText("");
@@ -72,6 +66,7 @@ public class Login extends JFrame implements ActionListener {
 
     void onSignUp() {
         System.out.println("SignUp");
+        new SignUp();
     }
 
     @Override
@@ -87,10 +82,15 @@ public class Login extends JFrame implements ActionListener {
 
     private void setProperties() {
         setLayout(null);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("src/icons/white icon.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                getClass().getClassLoader().getResource("icons/white icon.png")));
         setSize(800, 500);
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
         setTitle("Swing Bank");
+    }
+
+    public static void main(String[] args) {
+        new Login();
     }
 }

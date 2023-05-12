@@ -65,6 +65,5 @@ public class SignUp extends JFrame {
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
         setTitle("Swing Bank");
-
     }
 }

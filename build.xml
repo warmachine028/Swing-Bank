@@ -5,21 +5,27 @@
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="dist"/>
     <property name="lib.dir" value="lib" />
-    <property name="main-class" value="swing.bank"/>
+    <property name="main.class" value="swing.bank.SignUp"/>
 
     <property name="ivy.install.version" value="2.5.1"/>
     <property name="ivy.home" value="${user.home}/.ant"/>
     <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
     <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
     
-    <condition property="ivy.home" value="${env.IVY_HOME}">
-        <isset property="env.IVY_HOME"/>
-    </condition>
     <path id="classpath">
         <fileset dir="${lib.dir}">
             <include name="*.jar"/>
         </fileset>
     </path>
+    <path id="assets">
+        <fileset dir="${src.dir}">
+            <include name="icons/**"/>
+        </fileset>
+    </path>
+    <condition property="ivy.home" value="${env.IVY_HOME}">
+        <isset property="env.IVY_HOME"/>
+    </condition>
+
     <!-- download Ivy from website so that it can be used even without any special installation -->
     <target name="download-ivy" unless="offline" description="--> Download ivy">
         <mkdir dir="${ivy.jar.dir}"/>
@@ -33,15 +39,22 @@
         </path>
         <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
     </target>
-
     <target name="init" description="--> create directories">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${dist.dir}"/>
     </target>
+    <target name="copy-resources" depends="init" description="--> Copy resources to build directory">
+        <copy todir="${build.dir}">
+            <path refid="assets"/>
+        </copy>
+        <copy todir="${build.dir}/lib">
+            <path refid="classpath"/>
+        </copy>
+    </target>
     <target name="resolve-dependencies" description="--> retrieve dependencies with Ivy" depends="init">
         <ivy:retrieve />
     </target>
-    <target name="compile" depends="resolve-dependencies" description="--> Compile source files">
+    <target name="compile" depends="resolve-dependencies, copy-resources" description="--> Compile source files">
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
                 <pathelement location="${build.dir}"/>
@@ -52,7 +65,8 @@
     <target name="jar" depends="compile" description="--> Create distribution">
         <jar destfile="${dist.dir}/SwingBank.jar" basedir="${build.dir}">
             <manifest>
-                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Class-Path" value="${lib.dir}/*.jar"/>
             </manifest>
         </jar>
     </target>
@@ -62,5 +76,8 @@
     </target>
     <target name="build" depends="clean,jar" description="--> start building project">
         <echo message="Build complete!"/>
+    </target>
+    <target name="run" description="--> runs the project">
+        <java jar="${dist.dir}/SwingBank.jar" fork="true" />
     </target>
 </project>
