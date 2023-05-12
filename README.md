@@ -34,11 +34,11 @@
 - Download and Install Ant
 - Set path and environment variable
 
-sh
+```sh
   $> ant download-ivy  
   ...  
   $> ant
-
+```
 ![line]
 
 ## Tech Stack Used
