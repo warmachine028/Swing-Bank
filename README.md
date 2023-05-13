@@ -38,6 +38,7 @@
   $> ant -f ivysetup.xml
   ...  
   $> ant
+  ...
   $> ant -f run.xml
 ```
 ![line]
