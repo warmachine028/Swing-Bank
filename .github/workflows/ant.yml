@@ -32,7 +32,7 @@ jobs:
           sudo apt-get install ant
 
       - name: Set up Ivy
-        run: ant download-ivy
+        run: ant -f ivysetup.xml
 
       - name: Build with Ant
         run: ant

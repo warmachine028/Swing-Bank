@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="utf-8" ?>
+<project name="Swing Bank" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    <description> ANT Run file for Running swing bank after compiling </description>
+    <property name="dist.dir" value="dist"/>
+
+    <path id="classpath">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="run" description="--> runs the project">
+        <java jar="${dist.dir}/SwingBank.jar" fork="true" failonerror="true" maxmemory="128m"/>
+    </target>
+</project>

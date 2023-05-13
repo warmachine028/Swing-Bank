@@ -59,7 +59,7 @@ public class SignUp extends JFrame {
 
     void setProperties() {
         setLayout(null);
-        setIconImage(Toolkit.getDefaultToolkit().getImage("src/icons/white icon.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage("icons/white icon.png"));
         setSize(850, 800);
         setLocation(350, 10);
         getContentPane().setBackground(Color.BLACK);

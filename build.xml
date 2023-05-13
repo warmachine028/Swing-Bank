@@ -1,16 +1,12 @@
 <?xml version="1.1" encoding="utf-8" ?>
 <project name="Swing Bank" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
     <description> ANT Build file for Swing Bank Built on Java Swing Framework </description>
+
     <property name="src.dir" value="src"/>
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="dist"/>
     <property name="lib.dir" value="lib" />
     <property name="main.class" value="swing.bank.SignUp"/>
-
-    <property name="ivy.install.version" value="2.5.1"/>
-    <property name="ivy.home" value="${user.home}/.ant"/>
-    <property name="ivy.jar.dir" value="${ivy.home}/lib"/>
-    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
     
     <path id="classpath">
         <fileset dir="${lib.dir}">
@@ -22,28 +18,19 @@
             <include name="icons/**"/>
         </fileset>
     </path>
-    <condition property="ivy.home" value="${env.IVY_HOME}">
-        <isset property="env.IVY_HOME"/>
-    </condition>
 
-    <!-- download Ivy from website so that it can be used even without any special installation -->
-    <target name="download-ivy" unless="offline" description="--> Download ivy">
-        <mkdir dir="${ivy.jar.dir}"/>
-        <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-             dest="${ivy.jar.file}" usetimestamp="true"
-        />
+    <target name="clean" description="--> Remove previously generated build files">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
     </target>
-    <target name="init-ivy" depends="download-ivy" description="--> SetUp ivy">
-        <path id="ivy.lib.path">
-            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
-        </path>
-        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
-    </target>
-    <target name="init" description="--> create directories">
+    <target name="init" depends="clean" description="--> create directories">
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${dist.dir}"/>
     </target>
-    <target name="copy-resources" depends="init" description="--> Copy resources to build directory">
+    <target name="resolve-dependencies" depends="init" description="--> retrieve dependencies with Ivy">
+        <ivy:retrieve />
+    </target>
+    <target name="copy-resources" depends="resolve-dependencies" description="--> Copy resources to build directory">
         <copy todir="${build.dir}">
             <path refid="assets"/>
         </copy>
@@ -51,10 +38,7 @@
             <path refid="classpath"/>
         </copy>
     </target>
-    <target name="resolve-dependencies" description="--> retrieve dependencies with Ivy" depends="init">
-        <ivy:retrieve />
-    </target>
-    <target name="compile" depends="resolve-dependencies, copy-resources" description="--> Compile source files">
+    <target name="compile" depends="copy-resources" description="--> Compile source files">
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
                 <pathelement location="${build.dir}"/>
@@ -66,18 +50,10 @@
         <jar destfile="${dist.dir}/SwingBank.jar" basedir="${build.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main.class}"/>
-                <attribute name="Class-Path" value="${lib.dir}/*.jar"/>
             </manifest>
         </jar>
     </target>
-    <target name="clean" description="--> Remove previously generated build files">
-        <delete dir="${build.dir}"/>
-        <delete dir="${dist.dir}"/>
-    </target>
-    <target name="build" depends="clean,jar" description="--> start building project">
+    <target name="build" depends="jar" description="--> start building project">
         <echo message="Build complete!"/>
-    </target>
-    <target name="run" description="--> runs the project">
-        <java jar="${dist.dir}/SwingBank.jar" fork="true" />
     </target>
 </project>
