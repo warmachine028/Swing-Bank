@@ -35,9 +35,10 @@
 - Set path and environment variable
 
 ```sh
-  $> ant download-ivy  
+  $> ant -f ivysetup.xml
   ...  
   $> ant
+  $> ant -f run.xml
 ```
 ![line]
 
