@@ -1,4 +1,4 @@
-    updated on: 09th May 2023, Tuesday
+    updated on: 12th May 2023, Friday
 
 <div align=center>
     <a href="https://github.com/warmachine028/Swing-Bank">
@@ -34,11 +34,11 @@
 - Download and Install Ant
 - Set path and environment variable
 
-sh
+```sh
   $> ant download-ivy  
   ...  
   $> ant
-
+```
 ![line]
 
 ## Tech Stack Used
@@ -82,4 +82,4 @@ sh
 [License]: https://github.com/warmachine028/swing-bank/blob/main/LICENSE
 
 
-<!-- 09/05/23 -->
+<!-- 12/05/23 -->
