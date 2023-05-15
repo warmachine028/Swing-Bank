@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class Button extends JButton {
     int x, y, width, height = 30;
+    Color foregroundColor = Color.WHITE,
+          backgroundColor = Color.BLACK;
 
     public Button(String text, int x, int y, int width, JFrame frame) {
         super(text);
@@ -16,8 +18,8 @@ public class Button extends JButton {
     }
 
     void setProperties() {
-        setBackground(Color.BLACK);
-        setForeground(Color.WHITE);
+        setBackground(backgroundColor);
+        setForeground(foregroundColor);
         setBounds(x, y, width, height);
     }
 
