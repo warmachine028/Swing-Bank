@@ -6,7 +6,7 @@
     </a>
     <p style="font-family: roboto, calibri; font-size:12pt; font-style:italic"> Experience banking without limits </p>
     <a href="https://github.com/warmachine028/Swing-Bank/actions">
-        <img src="https://github.com/warmachine028/Swing-Bank/actions/workflows/ant.yml/badge.svg" alt="Distribution"/>
+        <img src="https://github.com/warmachine028/Swing-Bank/actions/workflows/ant.yml/badge.svg?branch=main" alt="Distribution"/>
     </a>
 </div>
 
