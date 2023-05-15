@@ -1,4 +1,4 @@
-package swing.bank.components;
+package swing.bank.components.Buttons;
 
 import javax.swing.*;
 import java.awt.*;
