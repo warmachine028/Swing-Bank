@@ -21,13 +21,12 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 
 ### VS Code ###
 .vscode/
-
+.idea
 ### Mac OS ###
 .DS_Store
-.idea
+/build/
+/lib/
 *.iml
-lib/
