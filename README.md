@@ -62,6 +62,8 @@
 - Abstraction
   - Partial _(Abstract Class)_
   - Complete _(Interface)_
+- Interface
+  - Functional Interface
 - Polymorphism
   - Static _(Method OverLoading)_
   - Dynamic _(Method OverRiding)_
