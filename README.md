@@ -1,6 +1,6 @@
     updated on: 13th May 2023, Saturday
 
-<div style="text-align: center;">
+<div align="center">
     <a href="https://github.com/warmachine028/Swing-Bank">
         <img width="200" src="https://user-images.githubusercontent.com/75939390/235854846-0596d942-9ab1-4148-9f1c-7ed1f47201f5.png" alt="Swing Bank">
     </a>
@@ -17,7 +17,8 @@
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Developement](#developement)
+- [Development](#development)
+- [Concepts Used](#concepts-used)
 - [Tech Stack Used](#tech-stack-used)
 - [Preview](#preview)
 - [Best Contributors](#best-contributors)
@@ -27,9 +28,17 @@
 
 ## Introduction
 
+- This is a desktop based GUI Banking Application.
+- Built using Java on top of Swing and AWT Framework.
+- It uses MySQL as Database management.
+- For automating build configuration ANT has been used.
+- IVY has been used for dependency management.
+- Extensive use of GitHub Workflows for distribution automation.
+- Fully opensource 
+
 ![line]
 
-## Developement
+## Development
 
 - Download and Install Ant
 - Set path and environment variable
@@ -41,11 +50,28 @@
   ...
   $> ant -f run.xml
 ```
+
 ![line]
+
+## Concepts Used
+
+- Inheritance
+  - Hierarchical Inheritance
+  - MultiLevel Inheritance
+- Abstraction
+  - Complete _(Interface)_
+- Static Polymorphism _(Method OverLoading)_
+- Dynamic Polymorphism _(Method OverRiding)_
+- Exception Handling
+
+![line]
+
 
 ## Tech Stack Used
 
 - Java
+- Swing & AWT
+- MySQL
 - Ant
 - Git
 - Github
@@ -63,7 +89,7 @@
 
 <div align="center">
     <a  href="https://github.com/warmachine028/memories/graphs/swing-bank">
-        <img src="https://contrib.rocks/image?repo=warmachine028/swing-bank" />
+        <img src="https://contrib.rocks/image?repo=warmachine028/swing-bank"  alt="contributors"/>
     </a>
 </div>
 
