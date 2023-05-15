@@ -20,6 +20,7 @@
 - [Development](#development)
 - [Concepts Used](#concepts-used)
 - [Tech Stack Used](#tech-stack-used)
+- [Dependencies](#dependencies)
 - [Preview](#preview)
 - [Best Contributors](#best-contributors)
 - [License](#license)
@@ -33,8 +34,8 @@
 - It uses MySQL as Database management.
 - For automating build configuration ANT has been used.
 - IVY has been used for dependency management.
-- Extensive use of GitHub Workflows for distribution automation.
-- Fully opensource 
+- Extensive use of GitHub Workflows for CI/CD.
+- Fully opensource
 
 ![line]
 
@@ -56,32 +57,61 @@
 ## Concepts Used
 
 - Inheritance
-  - Hierarchical Inheritance
-  - MultiLevel Inheritance
+  - Hierarchical
+  - MultiLevel
 - Abstraction
+  - Partial _(Abstract Class)_
   - Complete _(Interface)_
-- Static Polymorphism _(Method OverLoading)_
-- Dynamic Polymorphism _(Method OverRiding)_
+- Polymorphism
+  - Static _(Method OverLoading)_
+  - Dynamic _(Method OverRiding)_
 - Exception Handling
+  - Try Catch Block
+  - Multi Catch
+  - Multiple Exceptions in 1 Block _('|' symbol)_
+  - Checked Exceptions
+  - Usage of Throw vs Throws keywords
+- Packaging
+  - Sub-Packaging
+- Folder Structuring
+  - _build_
+  - _lib_
+  - _components_
+  - _src_
+  - _dist_
+- String Formatting
+- Environment Variables
+- Form Validation
+  - Email Validation
+  - Prevention of SQL Injection
+- Component Reus-ability
+  - DRY Concept
 
 ![line]
 
-
 ## Tech Stack Used
 
-- Java
-- Swing & AWT
-- MySQL
-- Ant
-- Git
-- Github
-- Ivy
-- Github Actions
+- FrontEnd: Swing & AWT
+- BackEnd: Java
+- Configuration: XML
+- Database: MySQL
+- Build: Ant
+- Dependency Management: Ivy
+- Version Control: Git
+- Distribution: GitHub
+- CI/CD: GitHub Actions
+
+![line]
+
+## Dependencies
+
+- [JCalendar](https://mvnrepository.com/artifact/com.toedter/jcalendar/1.4)
+- [MySQL-Connector-J](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/8.0.33)
+- [Dotenv-java](https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java/3.0.0)
 
 ![line]
 
 ## Preview
-
 
 ![line]
 
