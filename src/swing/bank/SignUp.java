@@ -1,7 +1,9 @@
 package swing.bank;
-import swing.bank.components.Labels.FieldLabel;
-import swing.bank.components.Labels.SubTitleLabel;
-import swing.bank.components.Labels.TitleLabel;
+
+import swing.bank.components.Labels.*;
+import swing.bank.components.Buttons.*;
+import swing.bank.components.Buttons.ButtonGroup;
+import swing.bank.components.Buttons.Button;
 import swing.bank.components.TextField;
 
 import javax.swing.*;
@@ -18,7 +20,7 @@ public class SignUp extends JFrame {
     SignUp() {
         setProperties();
         setLabels();
-        setTextFields();
+        setFields();
         setVisible(true);
     }
 
@@ -43,7 +45,7 @@ public class SignUp extends JFrame {
         new FieldLabel("Pin Code: ", 100, 590, 200, 30, 20, this);
     }
 
-    private void setTextFields() {
+    private void setFields() {
         nameTextField = new TextField(this, 140);
         fNameTextField = new TextField(this, 190);
         emailTextField = new TextField(this, 340);
@@ -54,6 +56,19 @@ public class SignUp extends JFrame {
 
         datePicker = new JDateChooser();
         datePicker.setBounds(300, 240, 400, 30);
+        datePicker.setBackground(new Color(105, 105, 105));
+
+        RadioButton male = new RadioButton("Male", 300, 290, this);
+        RadioButton female = new RadioButton("Female", 450, 290, this);
+        new ButtonGroup(male, female);
+
+        RadioButton married = new RadioButton("Married", 300, 390, this);
+        RadioButton single = new RadioButton("Single", 450, 390, this);
+        RadioButton other = new RadioButton("Other", 600, 390, this);
+        new ButtonGroup(married, single, other);
+        new Button("Next", 620, 660, 80, this)
+                .setBackground(Color.RED);
+
         add(datePicker);
     }
 

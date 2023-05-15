@@ -1,6 +1,6 @@
 package swing.bank;
 
-import swing.bank.components.Button;
+import swing.bank.components.Buttons.Button;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.TitleLabel;
 
@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class Login extends JFrame implements ActionListener {
     JTextField cardNoTextField;
@@ -19,7 +20,7 @@ public class Login extends JFrame implements ActionListener {
         setProperties();
 
         /* Creating Components */
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("icons/logo.png")),
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("icons/logo.png"))),
                 scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         JLabel iconLabel = new JLabel(scaledIcon);
         new TitleLabel("Welcome to Swing Bank", 200, 40, Color.GREEN, this);
@@ -65,7 +66,6 @@ public class Login extends JFrame implements ActionListener {
     }
 
     void onSignUp() {
-        System.out.println("SignUp");
         new SignUp();
     }
 
