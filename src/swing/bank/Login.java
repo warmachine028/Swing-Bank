@@ -6,11 +6,9 @@ import swing.bank.components.Labels.TitleLabel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class Login extends JFrame implements ActionListener {
+public class Login extends JFrame {
     JTextField cardNoTextField;
     JPasswordField pinTextField;
     Button logInButton, clearButton, signUpButton;
@@ -44,9 +42,15 @@ public class Login extends JFrame implements ActionListener {
         pinTextField.setBounds(300, 220, 230, 30);
 
         /* Adding Event Listeners */
-        logInButton.addActionListener(this);
-        clearButton.addActionListener(this);
-        signUpButton.addActionListener(this);
+        logInButton.addActionListener((event) -> System.out.println("Login"));
+        clearButton.addActionListener((event) -> {
+            cardNoTextField.setText("");
+            pinTextField.setText("");
+        });
+        signUpButton.addActionListener((event) -> {
+            setVisible(false);
+            new SignUp();
+        });
 
         /* Adding Components to frame */
         add(iconLabel);
@@ -56,29 +60,10 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    void onClear() {
-        cardNoTextField.setText("");
-        pinTextField.setText("");
+    public static void main(String[] args) {
+        new Login();
     }
 
-    void onLogin() {
-        System.out.println("Login");
-    }
-
-    void onSignUp() {
-        new SignUp();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent event) {
-        var clickedButton = event.getSource();
-        if (clickedButton == clearButton)
-            onClear();
-        if (clickedButton == logInButton)
-            onLogin();
-        if (clickedButton == signUpButton)
-            onSignUp();
-    }
 
     private void setProperties() {
         setLayout(null);
@@ -88,9 +73,5 @@ public class Login extends JFrame implements ActionListener {
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
         setTitle("Swing Bank");
-    }
-
-    public static void main(String[] args) {
-        new Login();
     }
 }
