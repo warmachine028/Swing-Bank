@@ -175,7 +175,7 @@ public class SignUp extends JFrame {
         setLocation(350, 10);
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
-        setTitle("Swing Bank");
+        setTitle("Swing Bank-Initial Details");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
