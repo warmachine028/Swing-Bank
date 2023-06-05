@@ -12,17 +12,19 @@ import swing.bank.components.TextField;
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Enumeration;
-import java.util.Random;
 
 public class SignUp extends JFrame {
-    long formNo;
     TextField nameTextField, fNameTextField, emailTextField, addressTextField, cityTextField, stateTextField, pinCodeTextField;
     JDateChooser datePicker;
     ButtonGroup gender, maritalStatus;
+    JFrame loginFrame;
 
-    SignUp() {
+    SignUp(JFrame previousFrame) {
+        loginFrame = previousFrame;
         setProperties();
         setLabels();
         setFields();
@@ -30,11 +32,11 @@ public class SignUp extends JFrame {
     }
 
     public static void main(String[] args) {
-        new SignUp();
+        new SignUp(null);
     }
 
     private void setLabels() {
-        formNo = Math.abs(new Random().nextLong() % 9000L + 1000L);
+        String formNo = String.format("%04d", Connector.generateFormNumber());
         new TitleLabel("APPLICATION FORM No.: " + formNo, 140, 20, this);
         new SubTitleLabel("PAGE 1: Personal Details", 290, 80, this);
 
@@ -60,7 +62,9 @@ public class SignUp extends JFrame {
         pinCodeTextField = new TextField(this, 590);
 
         datePicker = new JDateChooser();
+        datePicker.setDateFormatString("dd-MM-yyyy");
         datePicker.setBounds(300, 240, 400, 30);
+        datePicker.setMaxSelectableDate(new Date());
 
         gender = new ButtonGroup(
                 new RadioButton("Male", 300, 290, this),
@@ -73,71 +77,82 @@ public class SignUp extends JFrame {
                 new RadioButton("Other", 600, 390, this)
         );
 
+        Button back = new Button("BACK", 380, 660, 80, this);
+        back.setBackground(Color.WHITE);
+        back.setForeground(Color.BLACK);
+        back.addActionListener(this::handleBack);
         Button clear = new Button("CLEAR", 500, 660, 80, this);
         clear.setBackground(Color.WHITE);
         clear.setForeground(Color.BLACK);
-        clear.addActionListener((event) -> {
-            nameTextField.setText("");
-            fNameTextField.setText("");
-            datePicker.setDate(null);
-            gender.clearSelection();
-            emailTextField.setText("");
-            maritalStatus.clearSelection();
-            addressTextField.setText("");
-            cityTextField.setText("");
-            stateTextField.setText("");
-            pinCodeTextField.setText("");
-        });
-        Button next = new Button("Next", 620, 660, 80, this);
+        clear.addActionListener(this::handleClear);
+        Button next = new Button("NEXT", 620, 660, 80, this);
         next.setBackground(Color.WHITE);
         next.setForeground(Color.BLACK);
-        next.addActionListener((event) -> {
-            String formNo = String.valueOf(this.formNo),
-                    name = nameTextField.getText(),
-                    fName = fNameTextField.getText(),
-                    dob = ((JTextField) datePicker.getDateEditor().getUiComponent()).getText(),
-                    gender,
-                    email = emailTextField.getText(),
-                    maritalStatus,
-                    address = addressTextField.getText(),
-                    city = cityTextField.getText(),
-                    state = stateTextField.getText(),
-                    pinCode = pinCodeTextField.getText();
-            RadioButton selectedGender = getSelection(this.gender),
-                    selectedMaritalStatus = getSelection(this.maritalStatus);
-            try {
-                Validator.validateName(name);
-                Validator.validateName(fName, "Father's Name");
-                Validator.validateEmail(email);
-                Validator.validateOptions(selectedGender, "gender");
-                Validator.validateOptions(selectedMaritalStatus, "marital status");
-
-                gender = selectedGender.getText();
-                maritalStatus = selectedMaritalStatus.getText();
-                // ! Add other Validators Later
-
-                Connector connection = new Connector();
-                String query = String.format(
-                        "INSERT INTO SignUpForms " +
-                                "VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                        formNo, name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode
-                );
-                connection.statement.executeUpdate(query);
-
-            } catch (NameNotFoundException | NullPointerException exception) {
-                JOptionPane.showMessageDialog(
-                        this,
-                        exception.getMessage(),
-                        "Invalid Input",
-                        JOptionPane.WARNING_MESSAGE);
-            } catch (SQLException exception) {
-                System.out.println(exception.getMessage());
-            } finally {
-
-            }
-        });
-
+        next.addActionListener(this::handleSubmit);
         add(datePicker);
+    }
+
+    void handleBack(ActionEvent event) {
+        if (loginFrame == null)
+            return;
+        setVisible(false);
+        loginFrame.setVisible(true);
+    }
+    void handleClear(ActionEvent event) {
+        nameTextField.setText("");
+        fNameTextField.setText("");
+        datePicker.setDate(null);
+        gender.clearSelection();
+        emailTextField.setText("");
+        maritalStatus.clearSelection();
+        addressTextField.setText("");
+        cityTextField.setText("");
+        stateTextField.setText("");
+        pinCodeTextField.setText("");
+    }
+    void handleSubmit(ActionEvent event) {
+        String name = nameTextField.getText(),
+                fName = fNameTextField.getText(),
+                dateOfBirth = ((JTextField) datePicker.getDateEditor().getUiComponent()).getText(),
+                gender,
+                email = emailTextField.getText(),
+                maritalStatus,
+                address = addressTextField.getText(),
+                city = cityTextField.getText(),
+                state = stateTextField.getText(),
+                pinCode = pinCodeTextField.getText();
+
+        RadioButton selectedGender = getSelection(this.gender), selectedMaritalStatus = getSelection(this.maritalStatus);
+        try {
+            Validator.validateName(name);
+            Validator.validateName(fName, "Father's Name");
+            Validator.validateDate(dateOfBirth);
+            Validator.validateOptions(selectedGender, "gender");
+            Validator.validateEmail(email);
+            Validator.validateOptions(selectedMaritalStatus, "marital status");
+
+            gender = selectedGender.getText();
+            maritalStatus = selectedMaritalStatus.getText();
+            String[] date = dateOfBirth.split("-"); // User Format -> dd-mm-yyyy
+            String dob = String.format("%s-%s-%s", date[2], date[1], date[0]); // SQL Format -> yyyy-mm-dd
+
+            Connector connection = new Connector();
+            String query = String.format(
+                    "INSERT INTO Users (name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode) " +
+                            "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                    name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode
+            );
+            connection.statement.executeUpdate(query);
+
+        } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (SQLException exception) {
+            System.out.println(exception.getCause() + exception.getMessage());
+        }
     }
 
     RadioButton getSelection(ButtonGroup buttonGroup) {
@@ -161,6 +176,6 @@ public class SignUp extends JFrame {
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
         setTitle("Swing Bank");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
 }

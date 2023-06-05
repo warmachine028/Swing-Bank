@@ -49,7 +49,7 @@ public class Login extends JFrame {
         });
         signUpButton.addActionListener((event) -> {
             setVisible(false);
-            new SignUp();
+            new SignUp(this);
         });
 
         /* Adding Components to frame */
@@ -73,5 +73,6 @@ public class Login extends JFrame {
         getContentPane().setBackground(Color.BLACK);
         setLocation(350, 200);
         setTitle("Swing Bank");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
