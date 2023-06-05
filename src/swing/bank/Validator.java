@@ -36,7 +36,7 @@ public class Validator {
         if (radioButton == null)
             throw new IllegalArgumentException("No " + fieldName + " selected");
     }
-
+  
     static void validateDate(String date) throws IllegalArgumentException {
         if (date == null)
             throw new IllegalArgumentException("No Date of Birth selected");
@@ -62,6 +62,26 @@ public class Validator {
         if (age > 100)
             throw new IllegalArgumentException("Age must be less than 100 Years to sign up.");
     }
-
-
+    
+    static void validateSelection(String selection, String fieldName) throws IllegalArgumentException {
+        if (selection == null)
+            throw new IllegalArgumentException("Please select " + fieldName);
+    }
+    
+    static void validatePan(String panNumber) throws IllegalArgumentException {
+        if (panNumber == null)
+        throw new IllegalArgumentException("Please enter your PAN Number");
+    }
+    
+    static void validateAadhaar(String aadhaarNumber) throws IllegalArgumentException {
+        if (aadhaarNumber == null)
+        throw new IllegalArgumentException("Please enter your Aadhaar Number");
+    }
+    
+    static String validateSeniorCitizen(Date dateOfBirth) {
+        String CurrentDate = "";
+//        if (currentDate - dateOfBirth > 60)
+//            return "Yes";
+        return "No";
+    }
 }
