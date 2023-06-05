@@ -94,7 +94,7 @@
 - FrontEnd: Swing & AWT
 - BackEnd: Java
 - Configuration: XML
-- Database: MySQL
+- Database: MySQL, JDBC
 - Build: Ant
 - Dependency Management: Ivy
 - Version Control: Git

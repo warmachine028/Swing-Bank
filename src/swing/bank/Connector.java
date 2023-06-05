@@ -54,7 +54,6 @@ public class Connector {
             state VARCHAR(100) NOT NULL,
             pinCode VARCHAR(20) NOT NULL
         );
-
         */
     }
 }
