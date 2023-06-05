@@ -22,6 +22,7 @@
 - [Tech Stack Used](#tech-stack-used)
 - [Dependencies](#dependencies)
 - [Preview](#preview)
+- [Table Schema](#table-schema)
 - [Best Contributors](#best-contributors)
 - [License](#license)
 
@@ -86,7 +87,7 @@
 - Form Validation
   - Email Validation
   - Prevention of SQL Injection
-- Component Reus-ability
+- Component Reusability
   - DRY Concept
 
 ![line]
@@ -102,6 +103,8 @@
 - Version Control: Git
 - Distribution: GitHub
 - CI/CD: GitHub Actions
+- Development: Intellij IDEA
+- Documentation: VsCode
 
 ![line]
 
@@ -116,6 +119,40 @@
 ## Preview
 
 ![line]
+
+## Table Schema
+
+### - Users
+
+| Field         | Type                             | Null | Key | Default | Extra          |
+|---------------|----------------------------------|------|-----|---------|----------------|
+| formNo        | int                              | NO   | PRI | NULL    | auto_increment |
+| name          | varchar(255)                     | NO   |     | NULL    |                |
+| fName         | varchar(255)                     | NO   |     | NULL    |                |
+| dob           | date                             | NO   |     | NULL    |                |
+| gender        | enum('Male','Female')            | NO   |     | NULL    |                |
+| email         | varchar(255)                     | NO   |     | NULL    |                |
+| maritalStatus | enum('Married','Single','Other') | NO   |     | NULL    |                |
+| address       | varchar(255)                     | NO   |     | NULL    |                |
+| city          | varchar(100)                     | NO   |     | NULL    |                |
+| state         | varchar(100)                     | NO   |     | NULL    |                |
+| pinCode       | varchar(20)                      | NO   |     | NULL    |                |
+
+### - Additional Details
+
+| Field          | Type                                                                                               | Null | Key | Default | Extra          |
+|----------------|----------------------------------------------------------------------------------------------------|------|-----|---------|----------------|
+| id             | int                                                                                                | NO   | PRI | NULL    | auto_increment |
+| formNo         | int                                                                                                | NO   | UNI | NULL    |                |
+| religion       | enum('Hindu','Muslim','Sikh','Other')                                                              | NO   |     | NULL    |                |
+| category       | enum('General','OBC','SC','ST','Other')                                                            | NO   |     | NULL    |                |
+| income         | enum('No Fixed Income','< 1,50,000','< 2,50,000','< 5,00,000','< 10,00,000','More than 10,00,000') | NO   |     | NULL    |                |
+| qualification  | enum('Non Graduate','Graduate','Post Graduate','Doctorate','Other')                                | NO   |     | NULL    |                |
+| occupation     | enum('Student','Salaried','Self Employed','Business','Retired','Other')                            | NO   |     | NULL    |                |
+| pan            | char(10)                                                                                           | NO   |     | NULL    |                |
+| aadhaar        | char(12)                                                                                           | NO   |     | NULL    |                |
+| existingHolder | enum('Yes','No')                                                                                   | NO   |     | NULL    |                |
+| seniorCitizen  | enum('Yes','No')                                                                                   | NO   |     | NULL    |                |
 
 ## Best Contributors
 
@@ -140,6 +177,5 @@
 [line]: https://user-images.githubusercontent.com/75939390/137615281-3a875960-92cc-407f-97fe-fd2319bdb252.png
 
 [License]: https://github.com/warmachine028/swing-bank/blob/main/LICENSE
-
 
 <!-- 05/06/23 -->

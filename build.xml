@@ -6,7 +6,7 @@
     <property name="build.dir" value="build"/>
     <property name="dist.dir" value="dist"/>
     <property name="lib.dir" value="lib" />
-    <property name="main.class" value="swing.bank.SignUp"/>
+    <property name="main.class" value="swing.bank.Login"/>
     
     <path id="classpath">
         <fileset dir="${lib.dir}">
