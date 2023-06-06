@@ -48,13 +48,16 @@ public class Validator {
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid Date Format. Please pick a valid date.");
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(birthDate);
+        Calendar now = Calendar.getInstance(),
+                dob = Calendar.getInstance();
+        now.setTime(birthDate);
 
         // Calculate age based on current date
-        Calendar currentDate = Calendar.getInstance();
-        int age = currentDate.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
-
+        int age = now.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (now.get(Calendar.MONTH) < dob.get(Calendar.MONTH) ||
+                (now.get(Calendar.MONTH) == dob.get(Calendar.MONTH) &&
+                        now.get(Calendar.DAY_OF_MONTH) < dob.get(Calendar.DAY_OF_MONTH)))
+            age--;
         if (age < 1)
             throw new IllegalArgumentException("Age Invalid.");
         if (age < 18)
@@ -70,18 +73,12 @@ public class Validator {
     
     static void validatePan(String panNumber) throws IllegalArgumentException {
         if (panNumber == null)
-        throw new IllegalArgumentException("Please enter your PAN Number");
+            throw new IllegalArgumentException("Please enter your PAN Number");
     }
     
     static void validateAadhaar(String aadhaarNumber) throws IllegalArgumentException {
         if (aadhaarNumber == null)
-        throw new IllegalArgumentException("Please enter your Aadhaar Number");
+            throw new IllegalArgumentException("Please enter your Aadhaar Number");
     }
-    
-    static String validateSeniorCitizen(Date dateOfBirth) {
-        String CurrentDate = "";
-//        if (currentDate - dateOfBirth > 60)
-//            return "Yes";
-        return "No";
-    }
+
 }
