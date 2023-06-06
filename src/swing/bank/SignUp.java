@@ -22,6 +22,7 @@ public class SignUp extends JFrame {
     JDateChooser datePicker;
     ButtonGroup gender, maritalStatus;
     JFrame loginFrame;
+    String formNo;
 
     SignUp(JFrame previousFrame) {
         loginFrame = previousFrame;
@@ -36,7 +37,7 @@ public class SignUp extends JFrame {
     }
 
     private void setLabels() {
-        String formNo = String.format("%04d", Connector.generateFormNumber());
+        formNo = String.format("%04d", Connector.generateFormNumber());
         new TitleLabel("APPLICATION FORM No.: " + formNo, 140, 20, this);
         new SubTitleLabel("PAGE 1: Personal Details", 290, 80, this);
 
@@ -65,6 +66,7 @@ public class SignUp extends JFrame {
         datePicker.setDateFormatString("dd-MM-yyyy");
         datePicker.setBounds(300, 240, 400, 30);
         datePicker.setMaxSelectableDate(new Date());
+        add(datePicker);
 
         gender = new ButtonGroup(
                 new RadioButton("Male", 300, 290, this),
@@ -77,6 +79,7 @@ public class SignUp extends JFrame {
                 new RadioButton("Other", 600, 390, this)
         );
 
+        // Buttons
         Button back = new Button("BACK", 380, 660, 80, this);
         back.setBackground(Color.WHITE);
         back.setForeground(Color.BLACK);
@@ -89,7 +92,6 @@ public class SignUp extends JFrame {
         next.setBackground(Color.WHITE);
         next.setForeground(Color.BLACK);
         next.addActionListener(this::handleSubmit);
-        add(datePicker);
     }
 
     void handleBack(ActionEvent event) {
@@ -98,6 +100,7 @@ public class SignUp extends JFrame {
         setVisible(false);
         loginFrame.setVisible(true);
     }
+
     void handleClear(ActionEvent event) {
         nameTextField.setText("");
         fNameTextField.setText("");
@@ -110,6 +113,7 @@ public class SignUp extends JFrame {
         stateTextField.setText("");
         pinCodeTextField.setText("");
     }
+
     void handleSubmit(ActionEvent event) {
         String name = nameTextField.getText(),
                 fName = fNameTextField.getText(),
@@ -143,7 +147,7 @@ public class SignUp extends JFrame {
                     name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode
             );
             connection.statement.executeUpdate(query);
-
+            openNextFrame();
         } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
             JOptionPane.showMessageDialog(
                     this,
@@ -153,6 +157,11 @@ public class SignUp extends JFrame {
         } catch (SQLException exception) {
             System.out.println(exception.getCause() + exception.getMessage());
         }
+    }
+
+    void openNextFrame() {
+        setVisible(false);
+        new AdditionalInformation(this, formNo);
     }
 
     RadioButton getSelection(ButtonGroup buttonGroup) {
