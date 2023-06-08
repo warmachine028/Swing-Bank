@@ -117,9 +117,9 @@ public class AdditionalInformation extends JFrame {
                     age--;
 
                 // Determine if the person is a senior citizen
-                seniorCitizenship = age >= 60 ? "Yes": "No";
+                seniorCitizenship = age >= 60 ? "Yes" : "No";
             } else {
-                throw new IllegalArgumentException("Invalid Initial User Data");
+                throw new IllegalArgumentException("Invalid Date of Birth");
             }
         } catch (IllegalArgumentException | SQLException exception) {
             JOptionPane.showMessageDialog(
