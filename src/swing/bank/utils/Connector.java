@@ -1,4 +1,4 @@
-package swing.bank;
+package swing.bank.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -15,8 +15,8 @@ import java.sql.*;
 public class Connector {
     Dotenv dotenv = Dotenv.configure().filename(".env.local").load();
 
-    Connection connection;
-    Statement statement;
+    public Connection connection;
+    public Statement statement;
 
     public Connector() {
         try {
@@ -33,7 +33,7 @@ public class Connector {
         }
     }
 
-    static long generateFormNumber() {
+    public static long generateFormNumber() {
         String query = "SELECT IFNULL(MAX(formNo)+1, 1) AS NextFormNumber FROM Users;";
         Statement statement = new Connector().statement;
         try (ResultSet result = statement.executeQuery(query)) {

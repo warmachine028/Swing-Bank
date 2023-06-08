@@ -1,4 +1,4 @@
-package swing.bank;
+package swing.bank.utils;
 
 import swing.bank.components.Buttons.RadioButton;
 
@@ -10,11 +10,11 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Validator {
-    static void validateName(String name) throws NameNotFoundException {
+    public static void validateName(String name) throws NameNotFoundException {
         validateName(name, "Name");
     }
 
-    static void validateName(String name, String fieldName) throws NameNotFoundException {
+    public static void validateName(String name, String fieldName) throws NameNotFoundException {
         name = name.trim();
         Pattern regex = Pattern.compile("[^a-zA-Z\\s]+");
         if (name.isEmpty())
@@ -26,18 +26,18 @@ public class Validator {
 
     }
 
-    static void validateEmail(String email) throws NullPointerException {
+    public static void validateEmail(String email) throws NullPointerException {
         Pattern regex = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
         if (!regex.matcher(email).matches())
             throw new NullPointerException("Invalid Email");
     }
 
-    static void validateOptions(RadioButton radioButton, String fieldName) throws IllegalArgumentException {
+    public static void validateOptions(RadioButton radioButton, String fieldName) throws IllegalArgumentException {
         if (radioButton == null)
             throw new IllegalArgumentException("No " + fieldName + " selected");
     }
   
-    static void validateDate(String date) throws IllegalArgumentException {
+    public static void validateDate(String date) throws IllegalArgumentException {
         if (date == null)
             throw new IllegalArgumentException("No Date of Birth selected");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -66,17 +66,17 @@ public class Validator {
             throw new IllegalArgumentException("Age must be less than 100 Years to sign up.");
     }
     
-    static void validateSelection(String selection, String fieldName) throws IllegalArgumentException {
+    public static void validateSelection(String selection, String fieldName) throws IllegalArgumentException {
         if (selection == null)
             throw new IllegalArgumentException("Please select " + fieldName);
     }
     
-    static void validatePan(String panNumber) throws IllegalArgumentException {
+    public static void validatePan(String panNumber) throws IllegalArgumentException {
         if (panNumber == null)
             throw new IllegalArgumentException("Please enter your PAN Number");
     }
     
-    static void validateAadhaar(String aadhaarNumber) throws IllegalArgumentException {
+    public static void validateAadhaar(String aadhaarNumber) throws IllegalArgumentException {
         if (aadhaarNumber == null)
             throw new IllegalArgumentException("Please enter your Aadhaar Number");
     }
