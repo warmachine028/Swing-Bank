@@ -2,15 +2,20 @@ package swing.bank;
 
 import swing.bank.components.Buttons.Button;
 import swing.bank.components.Buttons.ButtonGroup;
+import swing.bank.components.Buttons.CheckBox;
 import swing.bank.components.Buttons.RadioButton;
 import swing.bank.components.ComboBox;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.TextField;
+import swing.bank.utils.ButtonGroupUtils;
+import swing.bank.utils.Connector;
+import swing.bank.utils.Validator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,7 +53,7 @@ public class AdditionalInformation extends JFrame {
         new FieldLabel("PAN Number: ", 50, 390, 300, 30, 20, this);
         new FieldLabel("Aadhaar Number: ", 50, 440, 300, 30, 20, this);
         new FieldLabel("Existing account Holder ?", 50, 490, 300, 30, 20, this);
-        new FieldLabel("Senior Citizen ?", 50, 540, 300, 30, 20, this);
+        new FieldLabel("Senior Citizen", 50, 540, 300, 30, 20, this);
     }
 
     private void setFields() {
@@ -76,18 +81,23 @@ public class AdditionalInformation extends JFrame {
         );
         setSeniorCitizen(seniorCitizenStatus);
 
-        Button back = new Button("BACK", 380, 660, 80, this);
+        Button back = new Button("BACK", 380, 680, 80, this);
         back.setBackground(Color.WHITE);
         back.setForeground(Color.BLACK);
         back.addActionListener(this::handleBack);
-        Button clear = new Button("CLEAR", 500, 660, 80, this);
+        Button clear = new Button("CLEAR", 500, 680, 80, this);
         clear.setBackground(Color.WHITE);
         clear.setForeground(Color.BLACK);
         clear.addActionListener(this::handleClear);
-        Button next = new Button("NEXT", 620, 660, 80, this);
+        Button next = new Button("NEXT", 620, 680, 80, this);
         next.setBackground(Color.WHITE);
         next.setForeground(Color.BLACK);
         next.addActionListener(this::handleSubmit);
+
+        next.setEnabled(false);
+        new CheckBox("I hereby declare that the above entered details are correct to the best of my knowledge",
+                60, 640, this
+        ).addItemListener(e -> next.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
     }
 
     private void setSeniorCitizen(ButtonGroup radioButtons) {
@@ -107,9 +117,9 @@ public class AdditionalInformation extends JFrame {
                     age--;
 
                 // Determine if the person is a senior citizen
-                seniorCitizenship = age >= 60 ? "Yes": "No";
+                seniorCitizenship = age >= 60 ? "Yes" : "No";
             } else {
-                throw new IllegalArgumentException("Invalid Initial User Data");
+                throw new IllegalArgumentException("Invalid Date of Birth");
             }
         } catch (IllegalArgumentException | SQLException exception) {
             JOptionPane.showMessageDialog(
@@ -156,7 +166,7 @@ public class AdditionalInformation extends JFrame {
                 pan = panTextField.getText(),
                 aadhaar = aadhaarTextField.getText(),
                 existingHolder;
-        RadioButton existingHolderStatus = getSelection(this.existingHolder);
+        RadioButton existingHolderStatus = ButtonGroupUtils.getSelection(this.existingHolder);
         try {
             Validator.validateSelection(religion, "a religion");
             Validator.validateSelection(category, "a category");
@@ -166,8 +176,15 @@ public class AdditionalInformation extends JFrame {
             Validator.validatePan(pan);
             Validator.validateAadhaar(aadhaar);
             Validator.validateOptions(existingHolderStatus, "existing account holder status");
-            existingHolder = existingHolderStatus.getText();
-
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        existingHolder = existingHolderStatus.getText();
+        try {
             Connector connection = new Connector();
             String query = String.format(
                     "INSERT INTO AdditionalDetails (formNo, religion, category, income, qualification," +
@@ -177,12 +194,6 @@ public class AdditionalInformation extends JFrame {
                     existingHolder, seniorCitizenship
             );
             connection.statement.executeUpdate(query);
-        } catch (NullPointerException | IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    exception.getMessage(),
-                    "Invalid Input",
-                    JOptionPane.WARNING_MESSAGE);
         } catch (SQLException exception) {
             JOptionPane.showMessageDialog(
                     this,
@@ -190,19 +201,11 @@ public class AdditionalInformation extends JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+        openNextFrame();
     }
-
-    RadioButton getSelection(ButtonGroup buttonGroup) {
-        RadioButton selectedButton = null;
-        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-        while (buttons.hasMoreElements()) {
-            RadioButton button = (RadioButton) buttons.nextElement();
-            if (button.isSelected()) {
-                selectedButton = button;
-                break;
-            }
-        }
-        return selectedButton;
+    void openNextFrame() {
+        setVisible(false);
+        new AccountDetails(this, signUpFormNumber);
     }
 
     void setProperties() {

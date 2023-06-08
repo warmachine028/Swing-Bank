@@ -4,5 +4,6 @@
         <dependency org="com.toedter" name="jcalendar" rev="1.4"/>
         <dependency org="com.mysql" name="mysql-connector-j" rev="8.0.33"/>
         <dependency org="io.github.cdimascio" name="dotenv-java" rev="3.0.0"/>
+        <dependency org="com.devskiller" name="jfairy" rev="0.6.5" />
     </dependencies>
 </ivy-module>

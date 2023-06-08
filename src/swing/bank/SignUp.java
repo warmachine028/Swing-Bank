@@ -3,19 +3,23 @@ package swing.bank;
 import com.toedter.calendar.JDateChooser;
 import swing.bank.components.Buttons.Button;
 import swing.bank.components.Buttons.ButtonGroup;
+import swing.bank.components.Buttons.CheckBox;
 import swing.bank.components.Buttons.RadioButton;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.Labels.TitleLabel;
 import swing.bank.components.TextField;
+import swing.bank.utils.ButtonGroupUtils;
+import swing.bank.utils.Connector;
+import swing.bank.utils.Validator;
 
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Enumeration;
 
 public class SignUp extends JFrame {
     TextField nameTextField, fNameTextField, emailTextField, addressTextField, cityTextField, stateTextField, pinCodeTextField;
@@ -80,18 +84,22 @@ public class SignUp extends JFrame {
         );
 
         // Buttons
-        Button back = new Button("BACK", 380, 660, 80, this);
+        Button back = new Button("BACK", 380, 680, 80, this);
         back.setBackground(Color.WHITE);
         back.setForeground(Color.BLACK);
         back.addActionListener(this::handleBack);
-        Button clear = new Button("CLEAR", 500, 660, 80, this);
+        Button clear = new Button("CLEAR", 500, 680, 80, this);
         clear.setBackground(Color.WHITE);
         clear.setForeground(Color.BLACK);
         clear.addActionListener(this::handleClear);
-        Button next = new Button("NEXT", 620, 660, 80, this);
+        Button next = new Button("NEXT", 620, 680, 80, this);
         next.setBackground(Color.WHITE);
         next.setForeground(Color.BLACK);
         next.addActionListener(this::handleSubmit);
+        next.setEnabled(false);
+        new CheckBox("I hereby declare that the above entered details are correct to the best of my knowledge",
+                60, 640, this
+        ).addItemListener(e -> next.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
     }
 
     void handleBack(ActionEvent event) {
@@ -118,15 +126,14 @@ public class SignUp extends JFrame {
         String name = nameTextField.getText(),
                 fName = fNameTextField.getText(),
                 dateOfBirth = ((JTextField) datePicker.getDateEditor().getUiComponent()).getText(),
-                gender,
                 email = emailTextField.getText(),
-                maritalStatus,
                 address = addressTextField.getText(),
                 city = cityTextField.getText(),
                 state = stateTextField.getText(),
                 pinCode = pinCodeTextField.getText();
 
-        RadioButton selectedGender = getSelection(this.gender), selectedMaritalStatus = getSelection(this.maritalStatus);
+        RadioButton selectedGender = ButtonGroupUtils.getSelection(this.gender),
+                selectedMaritalStatus = ButtonGroupUtils.getSelection(this.maritalStatus);
         try {
             Validator.validateName(name);
             Validator.validateName(fName, "Father's Name");
@@ -134,12 +141,18 @@ public class SignUp extends JFrame {
             Validator.validateOptions(selectedGender, "gender");
             Validator.validateEmail(email);
             Validator.validateOptions(selectedMaritalStatus, "marital status");
-
-            gender = selectedGender.getText();
-            maritalStatus = selectedMaritalStatus.getText();
-            String[] date = dateOfBirth.split("-"); // User Format -> dd-mm-yyyy
-            String dob = String.format("%s-%s-%s", date[2], date[1], date[0]); // SQL Format -> yyyy-mm-dd
-
+        } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        String[] date = dateOfBirth.split("-"); // User Format -> dd-mm-yyyy
+        String gender = selectedGender.getText(),
+                maritalStatus = selectedMaritalStatus.getText(),
+                dob = String.format("%s-%s-%s", date[2], date[1], date[0]); // SQL Format -> yyyy-mm-dd
+        try {
             Connector connection = new Connector();
             String query = String.format(
                     "INSERT INTO Users (name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode) " +
@@ -147,34 +160,15 @@ public class SignUp extends JFrame {
                     name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode
             );
             connection.statement.executeUpdate(query);
-            openNextFrame();
-        } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    exception.getMessage(),
-                    "Invalid Input",
-                    JOptionPane.WARNING_MESSAGE);
         } catch (SQLException exception) {
             System.out.println(exception.getCause() + exception.getMessage());
         }
+        openNextFrame();
     }
 
     void openNextFrame() {
         setVisible(false);
         new AdditionalInformation(this, formNo);
-    }
-
-    RadioButton getSelection(ButtonGroup buttonGroup) {
-        RadioButton selectedButton = null;
-        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-        while (buttons.hasMoreElements()) {
-            RadioButton button = (RadioButton) buttons.nextElement();
-            if (button.isSelected()) {
-                selectedButton = button;
-                break;
-            }
-        }
-        return selectedButton;
     }
 
     void setProperties() {

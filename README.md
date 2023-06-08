@@ -113,7 +113,7 @@
 - [JCalendar](https://mvnrepository.com/artifact/com.toedter/jcalendar/1.4)
 - [MySQL-Connector-J](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/8.0.33)
 - [Dotenv-java](https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java/3.0.0)
-
+- [jFairy](https://mvnrepository.com/artifact/com.devskiller/jfairy)
 ![line]
 
 ## Preview

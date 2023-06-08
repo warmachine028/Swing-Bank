@@ -11,6 +11,11 @@ public class RadioButton extends JRadioButton {
         super(text);
     }
 
+    public RadioButton(String text, int x, int y, int width, JFrame frame){
+        this(text, x, y, frame);
+        this.width = width;
+        setProperties();
+    }
     public RadioButton(String text, int x, int y, JFrame frame){
         this(text);
         this.x = x;
