@@ -10,6 +10,8 @@ import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.Labels.TitleLabel;
 import swing.bank.components.TextField;
 import swing.bank.utils.ButtonGroupUtils;
+import swing.bank.utils.Connector;
+import swing.bank.utils.Validator;
 
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
