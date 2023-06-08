@@ -1,4 +1,4 @@
-    updated on: 06th June 2023, Tuesday
+    updated on: 08th June 2023, Thursday
 
 <div align="center">
     <a href="https://github.com/warmachine028/Swing-Bank">
@@ -178,4 +178,4 @@
 
 [License]: https://github.com/warmachine028/swing-bank/blob/main/LICENSE
 
-<!-- 06/06/23 -->
+<!-- 08/06/23 -->
