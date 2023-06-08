@@ -3,6 +3,7 @@ package swing.bank;
 import com.toedter.calendar.JDateChooser;
 import swing.bank.components.Buttons.Button;
 import swing.bank.components.Buttons.ButtonGroup;
+import swing.bank.components.Buttons.CheckBox;
 import swing.bank.components.Buttons.RadioButton;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
@@ -80,18 +81,22 @@ public class SignUp extends JFrame {
         );
 
         // Buttons
-        Button back = new Button("BACK", 380, 660, 80, this);
+        Button back = new Button("BACK", 380, 680, 80, this);
         back.setBackground(Color.WHITE);
         back.setForeground(Color.BLACK);
         back.addActionListener(this::handleBack);
-        Button clear = new Button("CLEAR", 500, 660, 80, this);
+        Button clear = new Button("CLEAR", 500, 680, 80, this);
         clear.setBackground(Color.WHITE);
         clear.setForeground(Color.BLACK);
         clear.addActionListener(this::handleClear);
-        Button next = new Button("NEXT", 620, 660, 80, this);
+        Button next = new Button("NEXT", 620, 680, 80, this);
         next.setBackground(Color.WHITE);
         next.setForeground(Color.BLACK);
         next.addActionListener(this::handleSubmit);
+        next.setEnabled(false);
+        new CheckBox("I hereby declare that the above entered details are correct to the best of my knowledge",
+                60, 640, this
+        ).addItemListener(e -> next.setEnabled(e.getStateChange() == ItemEvent.SELECTED));
     }
 
     void handleBack(ActionEvent event) {
