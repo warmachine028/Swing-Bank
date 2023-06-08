@@ -160,16 +160,10 @@ public class SignUp extends JFrame {
                     name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode
             );
             connection.statement.executeUpdate(query);
-            openNextFrame();
-        } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    exception.getMessage(),
-                    "Invalid Input",
-                    JOptionPane.WARNING_MESSAGE);
         } catch (SQLException exception) {
             System.out.println(exception.getCause() + exception.getMessage());
         }
+        openNextFrame();
     }
 
     void openNextFrame() {
