@@ -126,15 +126,14 @@ public class SignUp extends JFrame {
         String name = nameTextField.getText(),
                 fName = fNameTextField.getText(),
                 dateOfBirth = ((JTextField) datePicker.getDateEditor().getUiComponent()).getText(),
-                gender,
                 email = emailTextField.getText(),
-                maritalStatus,
                 address = addressTextField.getText(),
                 city = cityTextField.getText(),
                 state = stateTextField.getText(),
                 pinCode = pinCodeTextField.getText();
 
-        RadioButton selectedGender = getSelection(this.gender), selectedMaritalStatus = getSelection(this.maritalStatus);
+        RadioButton selectedGender = ButtonGroupUtils.getSelection(this.gender),
+                selectedMaritalStatus = ButtonGroupUtils.getSelection(this.maritalStatus);
         try {
             Validator.validateName(name);
             Validator.validateName(fName, "Father's Name");
@@ -142,12 +141,18 @@ public class SignUp extends JFrame {
             Validator.validateOptions(selectedGender, "gender");
             Validator.validateEmail(email);
             Validator.validateOptions(selectedMaritalStatus, "marital status");
-
-            gender = selectedGender.getText();
-            maritalStatus = selectedMaritalStatus.getText();
-            String[] date = dateOfBirth.split("-"); // User Format -> dd-mm-yyyy
-            String dob = String.format("%s-%s-%s", date[2], date[1], date[0]); // SQL Format -> yyyy-mm-dd
-
+        } catch (NameNotFoundException | NullPointerException | IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        String[] date = dateOfBirth.split("-"); // User Format -> dd-mm-yyyy
+        String gender = selectedGender.getText(),
+                maritalStatus = selectedMaritalStatus.getText(),
+                dob = String.format("%s-%s-%s", date[2], date[1], date[0]); // SQL Format -> yyyy-mm-dd
+        try {
             Connector connection = new Connector();
             String query = String.format(
                     "INSERT INTO Users (name, fName, dob, gender, email, maritalStatus, address, city, state, pinCode) " +

@@ -176,8 +176,15 @@ public class AdditionalInformation extends JFrame {
             Validator.validatePan(pan);
             Validator.validateAadhaar(aadhaar);
             Validator.validateOptions(existingHolderStatus, "existing account holder status");
-            existingHolder = existingHolderStatus.getText();
-
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Invalid Input",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        existingHolder = existingHolderStatus.getText();
+        try {
             Connector connection = new Connector();
             String query = String.format(
                     "INSERT INTO AdditionalDetails (formNo, religion, category, income, qualification," +
@@ -187,12 +194,6 @@ public class AdditionalInformation extends JFrame {
                     existingHolder, seniorCitizenship
             );
             connection.statement.executeUpdate(query);
-        } catch (NullPointerException | IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    exception.getMessage(),
-                    "Invalid Input",
-                    JOptionPane.WARNING_MESSAGE);
         } catch (SQLException exception) {
             JOptionPane.showMessageDialog(
                     this,
