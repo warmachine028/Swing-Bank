@@ -201,7 +201,11 @@ public class AdditionalInformation extends JFrame {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+        openNextFrame();
     }
+    void openNextFrame() {
+        setVisible(false);
+        new AccountDetails(this, signUpFormNumber);
     }
 
     void setProperties() {
