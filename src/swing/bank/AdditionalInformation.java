@@ -7,6 +7,7 @@ import swing.bank.components.ComboBox;
 import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.TextField;
+import swing.bank.utils.ButtonGroupUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,7 +157,7 @@ public class AdditionalInformation extends JFrame {
                 pan = panTextField.getText(),
                 aadhaar = aadhaarTextField.getText(),
                 existingHolder;
-        RadioButton existingHolderStatus = getSelection(this.existingHolder);
+        RadioButton existingHolderStatus = ButtonGroupUtils.getSelection(this.existingHolder);
         try {
             Validator.validateSelection(religion, "a religion");
             Validator.validateSelection(category, "a category");
@@ -191,18 +192,6 @@ public class AdditionalInformation extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    RadioButton getSelection(ButtonGroup buttonGroup) {
-        RadioButton selectedButton = null;
-        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-        while (buttons.hasMoreElements()) {
-            RadioButton button = (RadioButton) buttons.nextElement();
-            if (button.isSelected()) {
-                selectedButton = button;
-                break;
-            }
-        }
-        return selectedButton;
     }
 
     void setProperties() {

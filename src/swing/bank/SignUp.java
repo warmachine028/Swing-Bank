@@ -8,6 +8,7 @@ import swing.bank.components.Labels.FieldLabel;
 import swing.bank.components.Labels.SubTitleLabel;
 import swing.bank.components.Labels.TitleLabel;
 import swing.bank.components.TextField;
+import swing.bank.utils.ButtonGroupUtils;
 
 import javax.naming.NameNotFoundException;
 import javax.swing.*;
@@ -15,7 +16,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Enumeration;
 
 public class SignUp extends JFrame {
     TextField nameTextField, fNameTextField, emailTextField, addressTextField, cityTextField, stateTextField, pinCodeTextField;
@@ -162,19 +162,6 @@ public class SignUp extends JFrame {
     void openNextFrame() {
         setVisible(false);
         new AdditionalInformation(this, formNo);
-    }
-
-    RadioButton getSelection(ButtonGroup buttonGroup) {
-        RadioButton selectedButton = null;
-        Enumeration<AbstractButton> buttons = buttonGroup.getElements();
-        while (buttons.hasMoreElements()) {
-            RadioButton button = (RadioButton) buttons.nextElement();
-            if (button.isSelected()) {
-                selectedButton = button;
-                break;
-            }
-        }
-        return selectedButton;
     }
 
     void setProperties() {
